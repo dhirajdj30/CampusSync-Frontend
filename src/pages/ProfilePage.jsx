@@ -1,6 +1,16 @@
-import React from "react";
+import {  useNavigate } from "react-router-dom";
 
 const ProfilePage = () => {
+  const handleLogout = () => {
+    localStorage.removeItem("user"); // Clear user session // Should log null
+    window.location.href = "/login"; // Redirect to login page
+};
+
+const navigate = useNavigate();
+const handleEdit = async () => {
+  navigate('/edit-profile')
+}
+
   return (
     <div className="min-h-screen bg-gray-100">
       {/* Navbar */}
@@ -27,7 +37,7 @@ const ProfilePage = () => {
               <a href="/profile" className="text-gray-700 hover:text-blue-600">
                 Profile
               </a>
-              <a href="/login" className="text-black-700 hover:text-red-600">
+              <a onClick={handleLogout} href="/login" className="text-black-700 hover:text-red-600">
                 Logout
               </a>
             </div>
@@ -63,7 +73,7 @@ const ProfilePage = () => {
               </label>
               <p className="mt-1 text-gray-600">+91 93568-28559</p>
             </div>
-            <button className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
+            <button onClick={handleEdit} className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
               Edit Profile
             </button>
           </div>

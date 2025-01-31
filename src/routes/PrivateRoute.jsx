@@ -1,16 +1,22 @@
-import React from "react";
-import { Navigate, Outlet, useLocation } from "react-router-dom";
-import { useAuth } from "../contexts/AuthContext";
+import { Navigate, Outlet } from "react-router-dom";
 
 const PrivateRoute = () => {
-  const { user } = useAuth();
-  const location = useLocation();
+  const user = localStorage.getItem("user");
+  const canteen = localStorage.getItem("canteen");
+  const printer = localStorage.getItem("printing")
+  if(user){
+    return <Outlet /> 
+  }
+  else if(canteen){
+    return <Outlet /> 
 
-  return user ? (
-    <Outlet />
-  ) : (
-    <Navigate to="/login" state={{ from: location }} replace />
-  );
+  }
+  else if(printer){
+    return <Outlet/>
+  }
+  else{
+    return <Navigate to="/Index" />
+  }
 };
 
 export default PrivateRoute;

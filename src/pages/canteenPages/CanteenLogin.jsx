@@ -1,16 +1,12 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { login } from "../services/studentService";
+import { login } from "../../services/canteenService";
 
 
 
-const LoginPage = () => {
-
-
-  
-
-  const [prnOrEmail, setPRNOrEmail] = useState("");
+const CanteenLogin = () => {
+  const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   
@@ -18,11 +14,11 @@ const LoginPage = () => {
 
 
   useEffect(() => {
-    const user = localStorage.getItem("user");
+    const user = localStorage.getItem("canteen");
     if (user) {
-      navigate("/");
+      navigate("/canteen-owner");
     }else{
-      navigate("/login");
+      navigate("/canteen-login");
     }
   },[navigate])
 
@@ -31,13 +27,13 @@ const LoginPage = () => {
     console.log(error)
     console.log(e)
     // Attempt to log in
-    const isLoggedIn = await login(prnOrEmail, password);
+    const isLoggedIn = await login(phone, password);
     if(isLoggedIn)
     {
-      localStorage.setItem("user", JSON.stringify(prnOrEmail));   
-      navigate("/");
+      localStorage.setItem("canteen", JSON.stringify(phone));   
+      navigate("/canteen-owner");
     }else{
-      setError("Invalid PRN/Email or Password");
+      setError("Invalid Phone or Password");
     }
   };
 
@@ -57,20 +53,20 @@ const LoginPage = () => {
           </div>
 
           {/* Welcome Message */}
-          <h1 className="text-xl font-bold text-center text-blue-800 mb-1">Welcome Back</h1>
+          <h1 className="text-xl font-bold text-center text-blue-800 mb-1">Canteen Owner Login</h1>
           <p className="text-center text-gray-600 mb-8">Please log in to access your account.</p>
 
           {/* Login Form */}
           <div >
             {/* PRN/Email Input */}
             <div className="mb-4">
-              <label htmlFor="prn" className="block text-sm font-medium text-gray-700">PRN or Email</label>
+              <label htmlFor="prn" className="block text-sm font-medium text-gray-700">Phone</label>
               <input
                 type="text"
                 id="prn"
                 name="prn"
-                onChange={(e) => setPRNOrEmail(e.target.value)}
-                placeholder="Enter your PRN or email"
+                onChange={(e) => setPhone(e.target.value)}
+                placeholder="Enter your phone no"
                 className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
             </div>
@@ -112,15 +108,15 @@ const LoginPage = () => {
       </div>
 
       {/* Right Side - Image */}
-      <div className="w-1/2 flex items-center justify-center bg-gray-100">
+      <div className="w-1/2 flex items-center justify-center bg-yellow-500 opacity-70 ">
         <img
-          src="https://vierp-test.s3.ap-south-1.amazonaws.com/logo/edupluscampus_banner.jpg"
+          src="https://gourmaha.ac.in/wp-content/uploads/2023/10/canteen.jpg"
           alt="College Banner"
-          className="w-fit h-fit object-cover rounded-lg"
+          className="w-full  max-h-full  object-cover rounded-lg overflow-hidden"
         />
       </div>
     </div>
   );
 };
 
-export default LoginPage;
+export default CanteenLogin;

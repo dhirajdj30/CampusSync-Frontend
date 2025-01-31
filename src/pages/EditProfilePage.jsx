@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
 const EditProfilePage = () => {
   const [profile, setProfile] = useState({
-    name: "John Doe",
-    email: "john.doe@example.com",
-    phone: "+1 234 567 890",
+    name: "Dhiraj Jagtap",
+    email: "dhirajdj30@gmail.com",
+    phone: "9356828559",
   });
 
   const handleChange = (e) => {
@@ -16,6 +16,10 @@ const EditProfilePage = () => {
     e.preventDefault();
     alert("Profile updated successfully!");
   };
+  const handleLogout = () => {
+    localStorage.removeItem("user"); // Clear user session // Should log null
+    window.location.href = "/login"; // Redirect to login page
+};
 
   return (
     <div className="min-h-screen bg-gray-100">
@@ -23,25 +27,28 @@ const EditProfilePage = () => {
       <nav className="bg-white shadow-lg">
         <div className="max-w-6xl mx-auto px-4">
           <div className="flex justify-between items-center py-4">
-            <div className="flex items-center">
+          <div className="flex items-center">
               <img
-                src="https://via.placeholder.com/100x50?text=College+Logo"
-                alt="College Logo"
-                className="h-8"
+                src="https://vierp-test.s3.ap-south-1.amazonaws.com/logo/vit_logo_new.png"
+                alt="Team Charlie"
+                className="h-14 w-14"
               />
             </div>
-            <div className="flex space-x-4">
-              <a href="#" className="text-gray-700 hover:text-blue-600">
+            <div className="flex space-x-4 text-xl ">
+              <a href="/" className="text-gray-700 hover:text-blue-600">
                 Home
               </a>
-              <a href="#" className="text-gray-700 hover:text-blue-600">
+              <a href="/canteen" className="text-gray-700 hover:text-blue-600">
                 Canteen
               </a>
-              <a href="#" className="text-gray-700 hover:text-blue-600">
+              <a href="/printing" className="text-gray-700 hover:text-blue-600">
                 Printing
               </a>
-              <a href="#" className="text-gray-700 hover:text-blue-600">
+              <a href="/profile" className="text-gray-700 hover:text-blue-600">
                 Profile
+              </a>
+              <a onClick={handleLogout} href="/login" className="text-black-700 hover:text-red-600">
+                Logout
               </a>
             </div>
           </div>

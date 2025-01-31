@@ -1,9 +1,11 @@
-import React from "react";
 import { useNavigate } from "react-router-dom";
 
 const LandingPage = () => {
   const navigate = useNavigate();
-
+  const handleLogout = () => {
+    localStorage.removeItem("user"); // Clear user session // Should log null
+    window.location.href = "/login"; // Redirect to login page
+};
   return (
     <div className="min-h-screen bg-gray-100">
       {/* Navbar */}
@@ -30,7 +32,7 @@ const LandingPage = () => {
               <a href="/profile" className="text-gray-700 hover:text-blue-600">
                 Profile
               </a>
-              <a href="/login" className="text-black-700 hover:text-red-600">
+              <a onClick={handleLogout} href="/login" className="text-black-700 hover:text-red-600">
                 Logout
               </a>
             </div>
